@@ -1,0 +1,26 @@
+-- Measures used on the decision page.
+-- Table name: superstore_sales
+-- Dates and decimals imported with locale English (United States).
+
+Sales Amount = SUM(superstore_sales[Sales])
+
+Profit Amount = SUM(superstore_sales[Profit])
+
+Margin % = DIVIDE([Profit Amount], [Sales Amount])
+
+Orders = DISTINCTCOUNT(superstore_sales[Order ID])
+
+Order Share =
+DIVIDE(
+    [Orders],
+    CALCULATE([Orders], ALL(superstore_sales[Product Category]))
+)
+
+Profit Share =
+DIVIDE(
+    [Profit Amount],
+    CALCULATE([Profit Amount], ALL(superstore_sales[Product Category]))
+)
+
+-- Calculated column, not a measure. Used as the year slicer.
+Order Year = YEAR(superstore_sales[Order Date])
